@@ -75,5 +75,6 @@ public class StudentRepositoryTest {
         studentRepository.save(student);
 
         Assertions.assertThat(student.getName()).isEqualTo(studentInput.getName());
+        Assertions.assertThat(student.getEmail()).isEqualTo(studentInput.getEmail());
     }
 }
