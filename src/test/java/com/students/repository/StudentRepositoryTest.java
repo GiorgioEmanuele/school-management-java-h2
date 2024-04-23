@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -59,5 +58,22 @@ public class StudentRepositoryTest {
         Optional<Student> studentDeleted = studentRepository.findById(student.getId());
 
         Assertions.assertThat(studentDeleted).isEmpty();
+    }
+
+    @Test
+    public void StudentRepository_UpdateStudent_ReturnUpdatedStudent() {
+        Student student = Student.builder().name("Emanuele").email("emanuele@gmail.com").build();
+
+        studentRepository.save(student);
+
+        Student studentInput = Student.builder().id(1).name("Giorgio").email("g.capuno@outlook" +
+                ".it").build();
+
+        student.setName(studentInput.getName());
+        student.setEmail(studentInput.getEmail());
+
+        studentRepository.save(student);
+
+        Assertions.assertThat(student.getName()).isEqualTo(studentInput.getName());
     }
 }
