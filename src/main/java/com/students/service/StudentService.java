@@ -11,5 +11,7 @@ public interface StudentService {
 
     void addStudent(Student student);
 
-    Boolean deleteStudent(Integer studentId);
+    Boolean deleteStudentById(Integer studentId);
+
+    Boolean updateStudent(Student student);
 }

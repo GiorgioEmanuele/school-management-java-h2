@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -30,9 +31,22 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Boolean deleteStudent(Integer studentId) {
+    public Boolean deleteStudentById(Integer studentId) {
         if (studentRepository.existsById(studentId)) {
             studentRepository.deleteById(studentId);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean updateStudent(Student myStudent) {
+        Optional<Student> currentStudent = studentRepository.findById(myStudent.getId());
+        if (currentStudent.isPresent()) {
+            Student updatedStudent = currentStudent.get();
+            updatedStudent.setName(myStudent.getName());
+            updatedStudent.setEmail(myStudent.getEmail());
+            studentRepository.save(updatedStudent);
             return true;
         }
         return false;

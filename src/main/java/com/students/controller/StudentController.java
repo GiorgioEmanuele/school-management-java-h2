@@ -54,7 +54,7 @@ public class StudentController {
     @DeleteMapping("/deleteStudent")
     public ResponseEntity<String> deleteStudent(@RequestParam Integer studentId,
                                                 @RequestHeader(value = "Accept-Language", required = false) Locale locale) {
-        Boolean isStudentDeleted = studentService.deleteStudent(studentId);
+        Boolean isStudentDeleted = studentService.deleteStudentById(studentId);
 
         if (isStudentDeleted) {
             return ResponseEntity.status(HttpStatus.OK).body(messageSource.getMessage(
@@ -63,5 +63,19 @@ public class StudentController {
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(messageSource.getMessage(
                 "studentNotFound", null, locale));
+    }
+
+    @PutMapping("/updateStudent")
+    public ResponseEntity<String> updateStudent(@RequestBody @Valid Student student,
+                                                @RequestHeader(value = "Accept-Language", required = false) Locale locale) {
+
+        Boolean isStudentUpdated = studentService.updateStudent(student);
+
+        if (isStudentUpdated) {
+            return ResponseEntity.status(HttpStatus.OK).body(messageSource.getMessage("studentUpdated", null, locale));
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(messageSource.getMessage("studentUpdateNotFound", null
+                , locale));
     }
 }
