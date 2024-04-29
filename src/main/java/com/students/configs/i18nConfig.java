@@ -1,4 +1,4 @@
-package com.students.i18n;
+package com.students.configs;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;

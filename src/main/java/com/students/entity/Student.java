@@ -19,7 +19,7 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Integer studentId;
 
     @NotNull(message = "{nameValidationMessage}")
     private String name;

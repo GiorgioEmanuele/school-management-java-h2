@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -26,6 +25,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Student getStudentById(Integer studentId) {
+        Optional<Student> student = studentRepository.findById(studentId);
+        return student.orElse(null);
+    }
+
+    @Override
     public void addStudent(Student student) {
         studentRepository.save(student);
     }
@@ -41,7 +46,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Boolean updateStudent(Student myStudent) {
-        Optional<Student> currentStudent = studentRepository.findById(myStudent.getId());
+        Optional<Student> currentStudent = studentRepository.findById(myStudent.getStudentId());
         if (currentStudent.isPresent()) {
             Student updatedStudent = currentStudent.get();
             updatedStudent.setName(myStudent.getName());
@@ -50,5 +55,10 @@ public class StudentServiceImpl implements StudentService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void uploadFileOfStudents(List<Student> students) {
+
     }
 }

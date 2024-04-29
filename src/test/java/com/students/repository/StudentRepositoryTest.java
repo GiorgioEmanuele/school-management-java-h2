@@ -29,7 +29,7 @@ public class StudentRepositoryTest {
         Student savedStudent = studentRepository.save(student);
         //assert
         Assertions.assertThat(savedStudent).isNotNull();
-        Assertions.assertThat(savedStudent.getId()).isNotNull();
+        Assertions.assertThat(savedStudent.getStudentId()).isNotNull();
     }
 
     @Test
@@ -53,9 +53,9 @@ public class StudentRepositoryTest {
 
         studentRepository.save(student);
 
-        studentRepository.deleteById(student.getId());
+        studentRepository.deleteById(student.getStudentId());
 
-        Optional<Student> studentDeleted = studentRepository.findById(student.getId());
+        Optional<Student> studentDeleted = studentRepository.findById(student.getStudentId());
 
         Assertions.assertThat(studentDeleted).isEmpty();
     }
@@ -66,7 +66,7 @@ public class StudentRepositoryTest {
 
         studentRepository.save(student);
 
-        Student studentInput = Student.builder().id(1).name("Giorgio").email("g.capuno@outlook" +
+        Student studentInput = Student.builder().studentId(1).name("Giorgio").email("g.capuno@outlook" +
                 ".it").build();
 
         student.setName(studentInput.getName());
